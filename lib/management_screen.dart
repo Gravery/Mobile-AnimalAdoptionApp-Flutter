@@ -11,7 +11,7 @@ class ManagementScreen extends StatefulWidget {
 
 class _ManagementScreenState extends State<ManagementScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final DatabaseReference _databaseRef = FirebaseDatabase.instance.reference();
+  final DatabaseReference _databaseRef = FirebaseDatabase.instance.ref();
   List<Animal> animalList = [];
 
   @override
@@ -103,7 +103,7 @@ class ManagementCard extends StatelessWidget {
       child: Column(
         children: [
           Image.network(
-            animal.image, // Usar a URL da imagem do animal
+            animal.image,
             width: 190,
             height: 150,
             fit: BoxFit.cover,
@@ -114,7 +114,7 @@ class ManagementCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  animal.name, // Usar o nome do animal
+                  animal.name,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -122,14 +122,14 @@ class ManagementCard extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  animal.description, // Usar a descrição do animal
+                  animal.description,
                   style: TextStyle(fontSize: 14),
                 ),
               ],
             ),
           ),
           ElevatedButton(
-            onPressed: onDeleteClick, // Usar a função de callback ao deletar
+            onPressed: onDeleteClick,
             child: Text('Deletar'),
             style: ElevatedButton.styleFrom(
               primary: Colors.red,

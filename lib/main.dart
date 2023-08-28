@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 import 'app_navigator.dart';
@@ -10,23 +11,29 @@ import 'announcement_screen.dart';
 import 'management_screen.dart';
 import 'profile_screen.dart';
 import 'login_screen.dart';
+import 'register_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Adoption App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen(),
+        '/home': (context) => MainScreen(initialTab: AppTab.home),
+      },
       home: BlocProvider(
         create: (context) => AppNavigatorCubit(),
         child: AuthenticationWrapper(),
@@ -49,7 +56,7 @@ class AuthenticationWrapper extends StatelessWidget {
           if (user == null) {
             return LoginScreen();
           } else {
-            return MainScreen();
+            return MainScreen(initialTab: AppTab.home);
           }
         }
 
@@ -61,55 +68,66 @@ class AuthenticationWrapper extends StatelessWidget {
   }
 }
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class MainScreen extends StatefulWidget {
+  final AppTab initialTab;
+
+  MainScreen({required this.initialTab, Key? key}) : super(key: key);
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  late PageController _pageController;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: widget.initialTab.index);
+    _currentIndex = widget.initialTab.index;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppNavigatorCubit, AppTab>(
-      builder: (context, activeTab) {
-        return Scaffold(
-          body: _buildScreen(activeTab),
-          bottomNavigationBar: BottomNavyBar(
-            selectedIndex: activeTab.index,
-            onItemSelected: (index) {
-              final appNavigator = context.read<AppNavigatorCubit>();
-              switch (index) {
-                case 0:
-                  appNavigator.showHome();
-                  break;
-                case 1:
-                  appNavigator.showAnnounce();
-                  break;
-                case 2:
-                  appNavigator.showManage();
-                  break;
-                case 3:
-                  appNavigator.showProfile();
-                  break;
-              }
-            },
-            items: [
-              BottomNavyBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Home'),
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.dashboard),
-                title: Text('Anunciar'),
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.notifications),
-                title: Text('Gerenciar'),
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.person),
-                title: Text('Perfil'),
-              ),
-            ],
+    return Scaffold(
+      body: PageView(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
+        children: [
+          HomeScreen(),
+          AnnouncementScreen(),
+          ManagementScreen(),
+          ProfileScreen(),
+        ],
+      ),
+      bottomNavigationBar: BottomNavyBar(
+        selectedIndex: _currentIndex,
+        onItemSelected: (index) {
+          _pageController.jumpToPage(index);
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavyBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
           ),
-        );
-      },
+          BottomNavyBarItem(
+            icon: Icon(Icons.dashboard),
+            title: Text('Anunciar'),
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.notifications),
+            title: Text('Gerenciar'),
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Perfil'),
+          ),
+        ],
+      ),
     );
   }
 

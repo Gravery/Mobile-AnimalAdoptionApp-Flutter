@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -10,39 +8,40 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final DatabaseReference _reference =
-      FirebaseDatabase.instance.reference().child('animals');
+      FirebaseDatabase.instance.ref().child('animals');
 
   List<Animal> animalList = [];
 
   @override
   void initState() {
     super.initState();
-    _loadAnimalList();
+    _listenForAnimalChanges();
   }
 
-  void _loadAnimalList() {
-    _reference.once().then((DataSnapshot snapshot) {
-          animalList.clear();
-          Map<dynamic, dynamic>? animalsMap =
-              snapshot.value as Map<dynamic, dynamic>?;
-          if (animalsMap != null) {
-            animalsMap.forEach((key, value) {
-              Animal animal = Animal(
-                id: value['id'],
-                image: value['image'],
-                name: value['name'],
-                description: value['description'],
-                breed: value['breed'],
-                age: value['age'],
-                type: value['type'],
-                contact: value['contact'],
-                user: value['user'],
-              );
-              animalList.add(animal);
-            });
-            setState(() {});
-          }
-        } as FutureOr Function(DatabaseEvent value));
+  void _listenForAnimalChanges() {
+    _reference.onValue.listen((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      animalList.clear();
+      Map<dynamic, dynamic>? animalsMap =
+          snapshot.value as Map<dynamic, dynamic>?;
+      if (animalsMap != null) {
+        animalsMap.forEach((key, value) {
+          Animal animal = Animal(
+            id: value['id'],
+            image: value['image'],
+            name: value['name'],
+            description: value['description'],
+            breed: value['breed'],
+            age: value['age'],
+            type: value['type'],
+            contact: value['contact'],
+            user: value['user'],
+          );
+          animalList.add(animal);
+        });
+        setState(() {});
+      }
+    });
   }
 
   @override

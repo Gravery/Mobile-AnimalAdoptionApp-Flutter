@@ -18,6 +18,11 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 20),
+            Text(
+              'Perfil',
+              style: TextStyle(fontSize: 50),
+            ),
             ElevatedButton(
               onPressed: () async {
                 try {
@@ -32,11 +37,6 @@ class ProfileScreen extends StatelessWidget {
                 }
               },
               child: Text('Sair'),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Perfil',
-              style: TextStyle(fontSize: 50),
             ),
             SizedBox(height: 20),
             Text(

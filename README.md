@@ -1,16 +1,17 @@
-# adoption_app
+#Aplicativo de Adoção de Animais Flutter
 
-A new Flutter project.
+*Aluno: Guilherme Calça
 
-## Getting Started
+*RA: 790759
 
-This project is a starting point for a Flutter application.
+Aplicativo desenvolvido para a disciplina de Desenvolvimento Móvel na UFSCar 2023/1.
 
-A few resources to get you started if this is your first Flutter project:
+O aplicativo consiste em uma plataforma para anúncio de animais para adoção utilizando Flutter e Firebase. 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+##Como Executar
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Para executar em conjunto com o firebase, é necessário instalar o FlutterFire CLI
+
+https://firebase.flutter.dev/docs/cli/?gclid=CjwKCAjwrranBhAEEiwAzbhNtfEvkYPgtw_6w0OQV-qsOcjzsjFJPGAKkjaVbAAqgH7Frvri_JFCBxoCts8QAvD_BwE&gclsrc=aw.ds
+
+Com a integração com Firebase configurada, basta rodar no dispositivo destino com flutter run

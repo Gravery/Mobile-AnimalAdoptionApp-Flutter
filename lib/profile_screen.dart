@@ -24,6 +24,11 @@ class ProfileScreen extends StatelessWidget {
               'Perfil',
               style: TextStyle(fontSize: 50),
             ),
+            SizedBox(height: 20),
+            Text(
+              user?.email ?? 'Usuário não logado',
+              style: TextStyle(fontSize: 30),
+            ),
             ElevatedButton(
               onPressed: () async {
                 try {
@@ -38,11 +43,6 @@ class ProfileScreen extends StatelessWidget {
                 }
               },
               child: Text('Sair'),
-            ),
-            SizedBox(height: 20),
-            Text(
-              user?.email ?? 'Usuário não logado',
-              style: TextStyle(fontSize: 30),
             ),
           ],
         ),

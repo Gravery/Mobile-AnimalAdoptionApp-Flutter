@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -109,9 +110,13 @@ class AnimalCard extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: Image.network(
-                animal.image,
+              child: CachedNetworkImage(
+                imageUrl: animal.image,
+                width: 190,
+                height: 150,
                 fit: BoxFit.cover,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             Expanded(
@@ -169,11 +174,13 @@ class AnimalDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              animal.image,
-              width: double.infinity,
-              height: 200.0,
+            CachedNetworkImage(
+              imageUrl: animal.image,
+              width: 190,
+              height: 150,
               fit: BoxFit.cover,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             SizedBox(height: 20.0),
             _buildDetailRow('Nome do Animal', animal.name),

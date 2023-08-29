@@ -133,10 +133,10 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
         title: Text('Anunciar Animal'),
       ),
       body: Container(
+        alignment: Alignment.center,
         color: Theme.of(context).colorScheme.onPrimary,
         padding: EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 10),
             Text(

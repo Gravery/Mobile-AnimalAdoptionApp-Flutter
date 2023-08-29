@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import 'home_screen.dart';
 
@@ -34,11 +35,14 @@ class _ManagementScreenState extends State<ManagementScreen> {
 
     if (user != null) {
       final userId = user.uid;
-      final DataSnapshot snapshot = (await _databaseRef
+
+      final DatabaseEvent event = (await _databaseRef
           .child("animals")
           .orderByChild("user")
           .equalTo(userId)
-          .once()) as DataSnapshot;
+          .once());
+
+      final DataSnapshot snapshot = event.snapshot;
 
       Map<dynamic, dynamic>? animalsMap =
           snapshot.value as Map<dynamic, dynamic>?;
@@ -102,11 +106,13 @@ class ManagementCard extends StatelessWidget {
       margin: EdgeInsets.only(top: 10, left: 6, right: 6),
       child: Column(
         children: [
-          Image.network(
-            animal.image,
+          CachedNetworkImage(
+            imageUrl: animal.image,
             width: 190,
             height: 150,
             fit: BoxFit.cover,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
           Padding(
             padding: EdgeInsets.all(14),

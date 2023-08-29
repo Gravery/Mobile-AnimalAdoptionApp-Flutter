@@ -14,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
         title: Text('Perfil'),
       ),
       body: Container(
+        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

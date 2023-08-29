@@ -1,14 +1,14 @@
-#Aplicativo de Adoção de Animais Flutter
+# Aplicativo de Adoção de Animais Flutter
 
-*Aluno: Guilherme Calça
+* Aluno: Guilherme Calça
 
-*RA: 790759
+* RA: 790759
 
 Aplicativo desenvolvido para a disciplina de Desenvolvimento Móvel na UFSCar 2023/1.
 
 O aplicativo consiste em uma plataforma para anúncio de animais para adoção utilizando Flutter e Firebase. 
 
-##Como Executar
+## Como Executar
 
 Para executar em conjunto com o firebase, é necessário instalar o FlutterFire CLI
 

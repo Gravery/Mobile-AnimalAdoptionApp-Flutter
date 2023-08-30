@@ -176,6 +176,7 @@ class AnimalDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CachedNetworkImage(
+              alignment: Alignment.center,
               imageUrl: animal.image,
               width: 190,
               height: 150,

@@ -142,86 +142,90 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.announce_animal),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        color: Theme.of(context).colorScheme.onPrimary,
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            Text(
-              AppLocalizations.of(context)!.announce,
-              style: TextStyle(fontSize: 50),
-            ),
-            SizedBox(height: 20),
-            TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.animal_name),
-            ),
-            SizedBox(height: 10),
-            TextFormField(
-              controller: _descriptionController,
-              maxLines: 3,
-              decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.animal_description),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    controller: _breedController,
-                    decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.animal_breed),
+      body: SingleChildScrollView(
+        child: Container(
+          alignment: Alignment.center,
+          color: Theme.of(context).colorScheme.onPrimary,
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+              Text(
+                AppLocalizations.of(context)!.announce,
+                style: TextStyle(fontSize: 50),
+              ),
+              SizedBox(height: 20),
+              TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.animal_name),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                controller: _descriptionController,
+                maxLines: 3,
+                decoration: InputDecoration(
+                    labelText:
+                        AppLocalizations.of(context)!.animal_description),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: 100,
+                    child: TextFormField(
+                      controller: _breedController,
+                      decoration: InputDecoration(
+                          labelText:
+                              AppLocalizations.of(context)!.animal_breed),
+                    ),
                   ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    controller: _ageController,
-                    decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.animal_age),
+                  Container(
+                    width: 100,
+                    child: TextFormField(
+                      controller: _ageController,
+                      decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.animal_age),
+                    ),
                   ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    controller: _typeController,
-                    decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context)!.animal_size),
+                  Container(
+                    width: 100,
+                    child: TextFormField(
+                      controller: _typeController,
+                      decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.animal_size),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            TextFormField(
-              controller: _contactController,
-              decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.contact),
-            ),
-            SizedBox(height: 10),
-            _imageFile != null
-                ? Image.file(
-                    _imageFile!,
-                    width: 130,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  )
-                : Container(),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _getImage,
-              child: Text(AppLocalizations.of(context)!.add_image),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _announceAnimal,
-              child: Text(AppLocalizations.of(context)!.announce),
-            ),
-          ],
+                ],
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                controller: _contactController,
+                decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.contact),
+              ),
+              SizedBox(height: 10),
+              _imageFile != null
+                  ? Image.file(
+                      _imageFile!,
+                      width: 130,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: _getImage,
+                child: Text(AppLocalizations.of(context)!.add_image),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: _announceAnimal,
+                child: Text(AppLocalizations.of(context)!.announce),
+              ),
+            ],
+          ),
         ),
       ),
     );

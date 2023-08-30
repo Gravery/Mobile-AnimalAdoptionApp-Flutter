@@ -68,7 +68,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 150),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,

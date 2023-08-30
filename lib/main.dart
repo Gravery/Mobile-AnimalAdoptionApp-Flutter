@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'app_navigator.dart';
 import 'home_screen.dart';
@@ -26,6 +28,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Adoption App',
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en'),
+        Locale('pt'),
+      ],
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
@@ -112,19 +124,19 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           BottomNavyBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text(AppLocalizations.of(context)!.home),
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.dashboard),
-            title: Text('Anunciar'),
+            title: Text(AppLocalizations.of(context)!.announce),
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.notifications),
-            title: Text('Gerenciar'),
+            title: Text(AppLocalizations.of(context)!.manage),
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.person),
-            title: Text('Perfil'),
+            title: Text(AppLocalizations.of(context)!.profile),
           ),
         ],
       ),

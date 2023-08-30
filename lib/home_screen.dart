@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -167,7 +168,7 @@ class AnimalDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalhes do Animal'),
+        title: Text(AppLocalizations.of(context)!.animal_details),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20.0),
@@ -183,12 +184,18 @@ class AnimalDetailsScreen extends StatelessWidget {
               errorWidget: (context, url, error) => Icon(Icons.error),
             ),
             SizedBox(height: 20.0),
-            _buildDetailRow('Nome do Animal', animal.name),
-            _buildDetailRow('Descrição do Animal', animal.description),
-            _buildDetailRow('Raça do Animal', animal.breed),
-            _buildDetailRow('Idade do Animal', animal.age),
-            _buildDetailRow('Tipo do Animal', animal.type),
-            _buildDetailRow('Contato', animal.contact),
+            _buildDetailRow(
+                AppLocalizations.of(context)!.animal_name, animal.name),
+            _buildDetailRow(AppLocalizations.of(context)!.animal_description,
+                animal.description),
+            _buildDetailRow(
+                AppLocalizations.of(context)!.animal_breed, animal.breed),
+            _buildDetailRow(
+                AppLocalizations.of(context)!.animal_age, animal.age),
+            _buildDetailRow(
+                AppLocalizations.of(context)!.animal_size, animal.type),
+            _buildDetailRow(
+                AppLocalizations.of(context)!.contact, animal.contact),
           ],
         ),
       ),

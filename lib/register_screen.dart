@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -29,28 +30,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
             password: password,
           );
 
-          // Successful registration logic
           print('User registered: ${userCredential.user?.email}');
-          Navigator.pushReplacementNamed(
-              context, '/home'); // Navigate to home screen
+          Navigator.pushReplacementNamed(context, '/home');
         } else {
-          // Passwords don't match
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Passwords do not match.'),
+              content: Text(AppLocalizations.of(context)!.password_not_match),
             ),
           );
         }
       } else {
-        // Empty fields
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Please enter valid credentials.'),
+            content: Text(AppLocalizations.of(context)!.error_credentials),
           ),
         );
       }
     } catch (e) {
-      // Handle registration errors
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Registration failed: ${e.toString()}'),
@@ -61,6 +57,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String registerText = AppLocalizations.of(context)!.register;
+    final String usernameLabel = AppLocalizations.of(context)!.username;
+    final String passwordLabel = AppLocalizations.of(context)!.password;
+    final String confirmPasswordLabel =
+        AppLocalizations.of(context)!.confirm_password;
+    final String registerButtonText = AppLocalizations.of(context)!.register;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -70,16 +73,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text(
-                  "Registrar",
+                Text(
+                  registerText,
                   style: TextStyle(fontSize: 50),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 50),
                 TextFormField(
                   controller: usernameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
+                  decoration: InputDecoration(
+                    labelText: usernameLabel,
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -87,8 +90,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
+                  decoration: InputDecoration(
+                    labelText: passwordLabel,
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -96,8 +99,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 TextFormField(
                   controller: confirmPasswordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Confirm Password',
+                  decoration: InputDecoration(
+                    labelText: confirmPasswordLabel,
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -109,15 +112,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onPressed: () {
                         firebaseSignup();
                       },
-                      child: const Text('Register'),
+                      child: Text(registerButtonText),
                     ),
                     const SizedBox(width: 20),
                     OutlinedButton(
                       onPressed: () {
-                        // Navigate to login screen
                         Navigator.pop(context);
                       },
-                      child: const Text('Login'),
+                      child: Text("Login"),
                     ),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -22,23 +23,20 @@ class _LoginScreenState extends State<LoginScreen> {
           password: password,
         );
 
-        // Successful login logic
         print('User logged in: ${userCredential.user?.email}');
-        Navigator.pushReplacementNamed(
-            context, '/home'); // Navigate to home screen
+        Navigator.pushReplacementNamed(context, '/home');
       } else {
-        // Unsuccessful login logic
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Please enter valid credentials.'),
+            content: Text(AppLocalizations.of(context)!.error_credentials),
           ),
         );
       }
     } catch (e) {
-      // Handle login errors
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Login failed: ${e.toString()}'),
+          content: Text(
+              '${AppLocalizations.of(context)!.login_failed}: ${e.toString()}'),
         ),
       );
     }
@@ -46,6 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String usernameLabel = AppLocalizations.of(context)!.username;
+    final String passwordLabel = AppLocalizations.of(context)!.password;
+    final String registerButtonText = AppLocalizations.of(context)!.register;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -63,8 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 50),
                 TextFormField(
                   controller: usernameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Username',
+                  decoration: InputDecoration(
+                    labelText: usernameLabel,
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -72,8 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
+                  decoration: InputDecoration(
+                    labelText: passwordLabel,
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -85,15 +87,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         firebaseSignIn();
                       },
-                      child: const Text('Login'),
+                      child: Text('Login'),
                     ),
                     const SizedBox(width: 20),
                     OutlinedButton(
                       onPressed: () {
-                        // Navigate to registration screen
                         Navigator.pushNamed(context, '/register');
                       },
-                      child: const Text('Register'),
+                      child: Text(registerButtonText),
                     ),
                   ],
                 ),

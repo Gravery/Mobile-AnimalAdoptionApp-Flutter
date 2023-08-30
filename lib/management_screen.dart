@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'home_screen.dart';
 
@@ -71,7 +72,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gerenciamento'),
+        title: Text(AppLocalizations.of(context)!.management),
       ),
       body: Container(
         padding: EdgeInsets.only(bottom: 60),
@@ -136,7 +137,7 @@ class ManagementCard extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: onDeleteClick,
-            child: Text('Deletar'),
+            child: Text(AppLocalizations.of(context)!.delete),
             style: ElevatedButton.styleFrom(
               primary: Colors.red,
               onPrimary: Colors.white,

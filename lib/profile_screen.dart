@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:adoption_app/main.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil'),
+        title: Text(AppLocalizations.of(context)!.profile),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -21,12 +22,12 @@ class ProfileScreen extends StatelessWidget {
           children: [
             SizedBox(height: 20),
             Text(
-              'Perfil',
+              AppLocalizations.of(context)!.profile,
               style: TextStyle(fontSize: 50),
             ),
             SizedBox(height: 20),
             Text(
-              user?.email ?? 'Usuário não logado',
+              user?.email ?? AppLocalizations.of(context)!.user_not_logged,
               style: TextStyle(fontSize: 30),
             ),
             ElevatedButton(
@@ -42,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                   print("Erro ao fazer logout: $e");
                 }
               },
-              child: Text('Sair'),
+              child: Text(AppLocalizations.of(context)!.log_out),
             ),
           ],
         ),

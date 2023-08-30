@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:io';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnnouncementScreen extends StatefulWidget {
   @override
@@ -75,12 +76,13 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
         _contactController.clear();
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Anúncio criado com sucesso')),
+          SnackBar(
+              content: Text(AppLocalizations.of(context)!.announce_success)),
         );
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Usuário não logado')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.user_not_logged)),
       );
     }
   }
@@ -89,23 +91,31 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
     final icon = Icons.warning;
 
     if (_nameController.text.trim().isEmpty) {
-      _showErrorSnackBar("Insira o nome do animal", icon);
+      _showErrorSnackBar(
+          AppLocalizations.of(context)!.insert_animal_name, icon);
+      return false;
+    }
+    if (_descriptionController.text.trim().isEmpty) {
+      _showErrorSnackBar(
+          AppLocalizations.of(context)!.insert_animal_description, icon);
       return false;
     }
     if (_breedController.text.trim().isEmpty) {
-      _showErrorSnackBar("Insira a raça do animal", icon);
+      _showErrorSnackBar(
+          AppLocalizations.of(context)!.insert_animal_breed, icon);
       return false;
     }
     if (_ageController.text.trim().isEmpty) {
-      _showErrorSnackBar("Insira a idade do animal", icon);
+      _showErrorSnackBar(AppLocalizations.of(context)!.insert_animal_age, icon);
       return false;
     }
     if (_typeController.text.trim().isEmpty) {
-      _showErrorSnackBar("Insira o tipo do animal", icon);
+      _showErrorSnackBar(
+          AppLocalizations.of(context)!.insert_animal_size, icon);
       return false;
     }
     if (_contactController.text.trim().isEmpty) {
-      _showErrorSnackBar("Insira o contato", icon);
+      _showErrorSnackBar(AppLocalizations.of(context)!.insert_contact, icon);
       return false;
     }
     return true;
@@ -130,7 +140,7 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Anunciar Animal'),
+        title: Text(AppLocalizations.of(context)!.announce_animal),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -140,19 +150,21 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
           children: [
             SizedBox(height: 10),
             Text(
-              'Anunciar',
+              AppLocalizations.of(context)!.announce,
               style: TextStyle(fontSize: 50),
             ),
             SizedBox(height: 20),
             TextFormField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Nome do Animal'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.animal_name),
             ),
             SizedBox(height: 10),
             TextFormField(
               controller: _descriptionController,
               maxLines: 3,
-              decoration: InputDecoration(labelText: 'Descrição do Animal'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.animal_description),
             ),
             SizedBox(height: 20),
             Row(
@@ -162,21 +174,24 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
                   width: 100,
                   child: TextFormField(
                     controller: _breedController,
-                    decoration: InputDecoration(labelText: 'Raça'),
+                    decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.animal_breed),
                   ),
                 ),
                 Container(
                   width: 100,
                   child: TextFormField(
                     controller: _ageController,
-                    decoration: InputDecoration(labelText: 'Idade'),
+                    decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.animal_age),
                   ),
                 ),
                 Container(
                   width: 100,
                   child: TextFormField(
                     controller: _typeController,
-                    decoration: InputDecoration(labelText: 'Tamanho'),
+                    decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context)!.animal_size),
                   ),
                 ),
               ],
@@ -184,7 +199,8 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
             SizedBox(height: 10),
             TextFormField(
               controller: _contactController,
-              decoration: InputDecoration(labelText: 'Contato'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.contact),
             ),
             SizedBox(height: 10),
             _imageFile != null
@@ -198,12 +214,12 @@ class _AnnouncementScreenState extends State<AnnouncementScreen> {
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: _getImage,
-              child: Text('Adicionar Imagem'),
+              child: Text(AppLocalizations.of(context)!.add_image),
             ),
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: _announceAnimal,
-              child: Text('Anunciar'),
+              child: Text(AppLocalizations.of(context)!.announce),
             ),
           ],
         ),
